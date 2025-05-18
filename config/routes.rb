@@ -4,6 +4,9 @@ Rails.application.routes.draw do
     get 'visitor_count', to: 'visitor_counts#show'
     post 'visitor_count/increment', to: 'visitor_counts#increment'
     resources :books, only: [:index, :show, :create, :update]
+    resources :characters, only: [:create, :update]
+    resources :settings, only: [:create, :update]
+    resources :worldbuildings, only: [:create, :update]
     resources :posts, only: [:index, :show, :create]
     resources :contacts, only: [:create]
   end

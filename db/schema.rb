@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_05_11_134215) do
+ActiveRecord::Schema[7.1].define(version: 2025_05_18_141847) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,6 +21,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_11_134215) do
     t.integer "progress", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "characters", force: :cascade do |t|
+    t.bigint "book_id", null: false
+    t.string "name"
+    t.string "image"
+    t.text "bio"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_characters_on_book_id"
   end
 
   create_table "contacts", force: :cascade do |t|
@@ -46,10 +56,32 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_11_134215) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "settings", force: :cascade do |t|
+    t.bigint "book_id", null: false
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_settings_on_book_id"
+  end
+
   create_table "visitor_counts", force: :cascade do |t|
     t.integer "count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  create_table "worldbuildings", force: :cascade do |t|
+    t.bigint "book_id", null: false
+    t.text "magic"
+    t.text "history"
+    t.text "culture"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_worldbuildings_on_book_id"
+  end
+
+  add_foreign_key "characters", "books"
+  add_foreign_key "settings", "books"
+  add_foreign_key "worldbuildings", "books"
 end
